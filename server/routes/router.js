@@ -4,15 +4,10 @@ const users = require('../models/userSchema')
 
 
 
-// router.get('/',(req,res)=>{
-//     console.log('connect')
 
-// })
 router.post("/Register",async(req,res)=>{
     const {name,email,age,mobile,work,address,desc} = req.body;
-    // if(!name|| !email || !age || !mobile || !work || !address || !desc){
-    //     res.status(404).json('plz fill the data')
-    // }
+    
     try {
         const preuser = await users.findOne({email:email})
         console.log(preuser);
@@ -43,25 +38,12 @@ router.get('/getdata',async(req,res)=>{
         res.status(500).json(error);
     }
 })
-// get individual data
-// router.get('/getuser/:id',async(req,res)=>{
-//     try {
-//         console.log(req.params);
-//         const {id} = req.params;
 
-//         const userindividual = await users.findById({_id:id});
-//         console.log(userindividual);
-//         res.status(201).json(userindividual);
-//     } catch (error) {
-//         res.status(404).json(error);
-        
-//     }
-// })
 router.get('/getuser/:id', async (req, res) => {
     try {
         console.log(req.params);
         const { id } = req.params;
-        const userindividual = await users.findById(id); // Correct method name
+        const userindividual = await users.findById(id); 
         if (!userindividual) {
             return res.status(404).json("User not found");
         }
@@ -94,7 +76,7 @@ router.delete("/deleteuser/:id", async (req, res) => {
     try {
         const { id } = req.params;
 
-        const deleteuser = await users.findByIdAndDelete(id); // Corrected method name
+        const deleteuser = await users.findByIdAndDelete(id); 
         if (!deleteuser) {
             return res.status(404).json("User not found");
         }
